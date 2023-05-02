@@ -1,0 +1,9 @@
+db_login_host: localhost
+db_login_user:
+db_login_password:
+db_create_name: project_test
+db_create_user_name: 'project_test'
+db_create_user_password: 'Eg0N@dOp0Meny@TbsB+'
+db_create_user_host: '%'
+
+proj_grants: "{{ proj_db }}.*:ALL"

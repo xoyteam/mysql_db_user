@@ -1,0 +1,41 @@
+- name: install soft
+  block:
+    - name: debian new
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - python3-pymysql
+  rescue:
+    - name: debian old
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - python-mysqldb
+  tags: [create_db,create_user]
+
+- name: creat databases
+  mysql_db:
+    state: present
+    name:           '{{ proj_db }}'
+    login_host:     '{{ db_login_host }}'
+    login_user:     '{{ db_login_user }}'
+    login_password: '{{ db_login_password }}'
+    encoding:       'utf8'
+    collation:      'utf8_general_ci'
+    login_port:     3306
+  tags: [create_db]
+
+- name: create user for replication
+  mysql_user:
+    state: present
+    user:     '{{ proj_dbuser }}'
+    password: '{{ proj_dbpass }}'
+    host:     '{{ proj_dbuserhost }}'
+    priv:     '{{ proj_grants }}'
+    login_host:     '{{ db_login_host }}'
+    login_user:     '{{ db_login_user }}'
+    login_password: '{{ db_login_password }}'
+    login_port: 3306
+  tags: [create_user]

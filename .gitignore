@@ -1,0 +1,6 @@
+.molecule
+*.log
+*.swp
+ansible.cfg
+.direnv/
+.envrc
