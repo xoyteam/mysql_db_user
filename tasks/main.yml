@@ -27,7 +27,7 @@
     login_port:     3306
   tags: [create_db]
 
-- name: create user for replication
+- name: create user
   mysql_user:
     state: present
     user:     '{{ proj_dbuser }}'
@@ -39,3 +39,4 @@
     login_password: '{{ db_login_password }}'
     login_port: 3306
   tags: [create_user]
+
